@@ -4,7 +4,7 @@ import { CountryState } from './model/country-state';
 import { Observable } from 'rxjs';
 import { ProcessedDate } from './model/processed-date';
 
-const localUrl = 'http://localhost:8090/';
+const localUrl = 'http://shimunmatic.de:8090/';
 
 @Injectable({
   providedIn: 'root'
