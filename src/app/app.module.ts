@@ -15,12 +15,15 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatSortModule } from "@angular/material/sort";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CoronaChartComponent } from './corona-chart/corona-chart.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CoronaTableComponent
+    CoronaTableComponent,
+    CoronaChartComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { MatSortModule } from "@angular/material/sort";
     MatCardModule,
     MatSelectModule,
     MatGridListModule,
-    MatSortModule
+    MatSortModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

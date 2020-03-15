@@ -1,3 +1,5 @@
+import { ProcessedDate } from './processed-date';
+
 export interface CountryState {
     id: number;
     countryName: string;
@@ -6,4 +8,5 @@ export interface CountryState {
     deathCases: number;
     recoveredCases: number;
     lastUpdated: Date;
+    processedDate: ProcessedDate;
   }

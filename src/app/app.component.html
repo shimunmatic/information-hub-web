@@ -1,14 +1,21 @@
 <div class="toolbar" role="banner"></div>
 
 <div class="content" role="main">
-  <app-corona-table class="corona-table"></app-corona-table>
+  <!--<app-corona-chart [data]="germanyData"></app-corona-chart>
+  <app-corona-chart [data]="worldData"></app-corona-chart>
 
-<!--  <mat-grid-list cols="2" rowHeight="2:1" class="grid">
+  <app-corona-table class="corona-table"></app-corona-table>
+  -->
+  <mat-grid-list cols="2" rowHeight="2:1" class="grid">
     <mat-grid-tile [rowspan]="2">
       <app-corona-table class="corona-table"></app-corona-table>
     </mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-  </mat-grid-list>-->
+    <mat-grid-tile>
+      <app-corona-chart [data]="worldData" class="corona-chart"></app-corona-chart>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-corona-chart [data]="germanyData" class="corona-chart"></app-corona-chart>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
 <router-outlet></router-outlet>
