@@ -4,8 +4,8 @@ import { CountryState } from './model/country-state';
 import { Observable } from 'rxjs';
 import { ProcessedDate } from './model/processed-date';
 
-//const localUrl = 'https://api.information-hub.shimunmatic.de/';
-const localUrl = "http://localhost:8090/";
+const localUrl = 'https://api.information-hub.shimunmatic.de/';
+//const localUrl = "http://localhost:8090/";
 
 
 @Injectable({
