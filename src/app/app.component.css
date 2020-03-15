@@ -22,7 +22,7 @@
   }
 
   .corona-table {
-
+    flex: content  ;
   }
   .grid{
     width: 100%;

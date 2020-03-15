@@ -9,12 +9,12 @@ import { CoronaTableComponent } from './corona-table/corona-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from "@angular/material/select";
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
-
+import { MatSortModule } from "@angular/material/sort";
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { MatGridListModule } from "@angular/material/grid-list";
     MatInputModule,
     MatCardModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

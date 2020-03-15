@@ -4,7 +4,7 @@ import { CountryState } from './model/country-state';
 import { Observable } from 'rxjs';
 import { ProcessedDate } from './model/processed-date';
 
-const localUrl = 'https://api.information-hub.shimunmatic.de/';
+const localUrl = 'https://api.information-hub.shimunmatic.de/';//"http://localhost:8090/"
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,10 @@ export class ApiService {
   getAllProcessedDates(): Observable<HttpResponse<ProcessedDate[]>> {
     return this.http.get<ProcessedDate[]>(
       localUrl + "api/processeddate/all/", { observe: 'response' });
+  }
+
+  getAllCountryNames(): Observable<HttpResponse<string[]>> {
+    return this.http.get<string[]>(
+      localUrl + "api/countrystate/country", { observe: 'response' });
   }
 }
