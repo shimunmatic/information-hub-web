@@ -1,11 +1,9 @@
-export class ChartEntry {
+export interface ChartEntry {
     name: Date;
     value: number;
 }
 
-export class ChartModel{
+export interface ChartModel{
     name: string;
     series: ChartEntry[];
-
-
 }

@@ -1,11 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { CountryState } from './model/country-state';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
+import { CountryState } from './model/country-state';
 import { ProcessedDate } from './model/processed-date';
-
-const localUrl = 'https://api.information-hub.shimunmatic.de/';
-//const localUrl = "http://localhost:8090/";
 
 
 @Injectable({
@@ -13,45 +11,39 @@ const localUrl = 'https://api.information-hub.shimunmatic.de/';
 })
 export class ApiService {
 
+  private url = environment.apiUrl;
+
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<HttpResponse<CountryState[]>> {
-    return this.http.get<CountryState[]>(
-      localUrl + "api/countrystate/all", { observe: 'response' });
+  getAll(): Observable<CountryState[]> {
+    return this.http.get<CountryState[]>(`${this.url}/api/countrystate/all`);
   }
 
-  getAllForProcessedDate(processedDateId: number): Observable<HttpResponse<CountryState[]>> {
-    return this.http.get<CountryState[]>(
-      localUrl + "api/countrystate/all/" + processedDateId, { observe: 'response' });
+  getAllForProcessedDate(processedDateId: number): Observable<CountryState[]> {
+    return this.http.get<CountryState[]>(`${this.url}/api/countrystate/all/${processedDateId}`);
   }
 
-  getAllForWorld(): Observable<HttpResponse<CountryState[]>> {
-    return this.http.get<CountryState[]>(
-      localUrl + "api/countrystate/world", { observe: 'response' });
+  getAllForWorld(): Observable<CountryState[]> {
+    return this.http.get<CountryState[]>(`${this.url}/api/countrystate/world`);
   }
 
-  getAllForWorldForProcessedDate(processedDateId: number): Observable<HttpResponse<CountryState[]>> {
-    return this.http.get<CountryState[]>(
-      localUrl + "api/countrystate/world/" + processedDateId, { observe: 'response' });
+  getAllForWorldForProcessedDate(processedDateId: number): Observable<CountryState[]> {
+    return this.http.get<CountryState[]>(`${this.url}/api/countrystate/world/${processedDateId}`);
   }
 
-  getAllForCountry(countryName: string): Observable<HttpResponse<CountryState[]>> {
-    return this.http.get<CountryState[]>(
-      localUrl + "api/countrystate/country/" + countryName, { observe: 'response' });
+  getAllForCountry(countryName: string): Observable<CountryState[]> {
+    return this.http.get<CountryState[]>(`${this.url}/api/countrystate/country/${countryName}`);
   }
 
-  getAllForCountryAndPorcessedDate(countryName: string, processedDateId: number): Observable<HttpResponse<CountryState[]>> {
-    return this.http.get<CountryState[]>(
-      localUrl + "api/countrystate/country/" + countryName + "/" + processedDateId, { observe: 'response' });
+  getAllForCountryAndPorcessedDate(countryName: string, processedDateId: number): Observable<CountryState[]> {
+    return this.http.get<CountryState[]>(`${this.url}/api/countrystate/country/${countryName}/${processedDateId}`);
   }
 
-  getAllProcessedDates(): Observable<HttpResponse<ProcessedDate[]>> {
-    return this.http.get<ProcessedDate[]>(
-      localUrl + "api/processeddate/all/", { observe: 'response' });
+  getAllProcessedDates(): Observable<ProcessedDate[]> {
+    return this.http.get<ProcessedDate[]>(`${this.url}/api/processeddate/all/`);
   }
 
-  getAllCountryNames(): Observable<HttpResponse<string[]>> {
-    return this.http.get<string[]>(
-      localUrl + "api/countrystate/country", { observe: 'response' });
+  getAllCountryNames(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.url}/api/countrystate/country`);
   }
 }

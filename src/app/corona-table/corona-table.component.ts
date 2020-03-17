@@ -1,11 +1,9 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '../api.service';
 import { CountryState } from '../model/country-state';
-import { MatTableDataSource } from '@angular/material/table';
 import { ProcessedDate } from '../model/processed-date';
-import { MatSelectChange } from '@angular/material/select';
-import { DataSource } from '@angular/cdk/table';
-import {MatSort} from '@angular/material/sort';
 
 
 @Component({
@@ -13,7 +11,7 @@ import {MatSort} from '@angular/material/sort';
   templateUrl: './corona-table.component.html',
   styleUrls: ['./corona-table.component.css']
 })
-export class CoronaTableComponent implements OnInit {
+export class CoronaTableComponent implements AfterViewInit, OnInit {
   coronaStats: CountryState[] = [];
   processedDates: ProcessedDate[] = [];
   selectedProcessedDate: ProcessedDate;
@@ -42,7 +40,7 @@ export class CoronaTableComponent implements OnInit {
   getCountryNames() {
     this.api.getAllCountryNames()
       .subscribe(resp => {
-        this.countries = resp.body;
+        this.countries = resp;
         this.countries.sort();
       })
 
@@ -50,7 +48,7 @@ export class CoronaTableComponent implements OnInit {
   getProcessedDates() {
     this.api.getAllProcessedDates()
       .subscribe(resp => {
-        this.processedDates = resp.body;
+        this.processedDates = resp;
 
         this.selectedProcessedDate = this.processedDates[0];
         this.getCoronaStatsForProcessedDate(this.selectedProcessedDate);
@@ -60,7 +58,7 @@ export class CoronaTableComponent implements OnInit {
   getCoronaStats() {
     this.api.getAll()
       .subscribe(resp => {
-        this.coronaStats = resp.body;
+        this.coronaStats = resp;
 
         this.dataSource.data = this.coronaStats;
       });
@@ -69,7 +67,7 @@ export class CoronaTableComponent implements OnInit {
   getCoronaStatsForProcessedDate(date: ProcessedDate) {
     this.api.getAllForProcessedDate(date.id)
       .subscribe(resp => {
-        this.coronaStats = resp.body;
+        this.coronaStats = resp;
 
         this.dataSource.data = this.coronaStats;
         this.dataSource.sort = this.sort;
@@ -80,7 +78,7 @@ export class CoronaTableComponent implements OnInit {
   getCoronaStatsForCountryAndProcessedDate(countryName: string, processedDate: ProcessedDate) {
     this.api.getAllForCountryAndPorcessedDate(countryName, processedDate.id)
       .subscribe(resp => {
-        this.coronaStats = resp.body;
+        this.coronaStats = resp;
 
         this.dataSource.data = this.coronaStats;
       });
