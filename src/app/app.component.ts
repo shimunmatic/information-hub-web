@@ -10,6 +10,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  countries: string[];
+  selectedCountry: string;
 
   worldData = {
     name: 'World',
@@ -23,6 +25,19 @@ export class AppComponent {
   });
 
   constructor(private api: ApiService) { }
+
+  ngOnInit() {
+    this.getCountryNames();
+  }
+
+  getCountryNames() {
+    this.api.getAllCountryNames()
+      .subscribe(resp => {
+        this.countries = resp;
+        this.countries.sort();
+      })
+
+  }
 
   convertToChartModel(countryStates: CountryState[]): ChartModel[] {
     const data: ChartModel[] = [];
@@ -60,6 +75,21 @@ export class AppComponent {
 
     data.push(confirmedCases, deathCases, recoveredCases);
     return data;
+  }
+
+  removeChartClicked(countryName: string) {
+    this.customStatesData = this.customStatesData.filter(function (obj) {
+      return obj.name != countryName;
+    })
+  }
+
+  addChartCountry() {
+    if (this.selectedCountry && this.selectedCountry != "") {
+      this.customStatesData.push({
+        name: this.selectedCountry,
+        data: this.api.getAllForCountry(this.selectedCountry).pipe(map(data => this.convertToChartModel(data)))
+      });
+    }
   }
 
 }

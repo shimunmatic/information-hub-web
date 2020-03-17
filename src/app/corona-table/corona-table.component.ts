@@ -22,18 +22,19 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = ['countryName', 'stateName', 'lastUpdated', 'confirmedCases', 'deathCases', 'recoveredCases'];
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
+    this.selectedCountry = "World";
     this.getProcessedDates();
     this.getCountryNames();
   }
 
-  ngAfterViewInit (){
+  ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
@@ -42,6 +43,7 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
       .subscribe(resp => {
         this.countries = resp;
         this.countries.sort();
+        this.countries = ["World"].concat(this.countries);
       })
 
   }
@@ -90,10 +92,24 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
   }
 
   onDateChanged(selectedProcessedDate: ProcessedDate) {
-    this.getCoronaStatsForProcessedDate(selectedProcessedDate);
+    if (this.selectedCountry) {
+      if (this.selectedCountry === "World") {
+        this.getCoronaStatsForProcessedDate(this.selectedProcessedDate);
+      }
+      else {
+        this.getCoronaStatsForCountryAndProcessedDate(this.selectedCountry, this.selectedProcessedDate);
+      }
+    } else {
+      this.getCoronaStatsForProcessedDate(selectedProcessedDate);
+    }
   }
 
   onCountryChanged(countryName: string) {
-    this.getCoronaStatsForCountryAndProcessedDate(countryName, this.selectedProcessedDate);
+    if (countryName === "World") {
+      this.getCoronaStatsForProcessedDate(this.selectedProcessedDate);
+    }
+    else {
+      this.getCoronaStatsForCountryAndProcessedDate(countryName, this.selectedProcessedDate);
+    }
   }
 }

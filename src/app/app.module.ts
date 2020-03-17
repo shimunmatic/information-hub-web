@@ -17,6 +17,8 @@ import { AppComponent } from './app.component';
 import { CoronaChartComponent } from './corona-chart/corona-chart.component';
 import { CoronaTableComponent } from './corona-table/corona-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatGridListModule,
     MatSortModule,
     NgxChartsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

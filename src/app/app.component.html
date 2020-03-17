@@ -1,12 +1,12 @@
 <!-- <div class="toolbar" role="banner"></div> -->
 
 <!-- <div class="content" role="main"> -->
-  <!--<app-corona-chart [data]="germanyData"></app-corona-chart>
+<!--<app-corona-chart [data]="germanyData"></app-corona-chart>
   <app-corona-chart [data]="worldData"></app-corona-chart>
 
   <app-corona-table class="corona-table"></app-corona-table>
   -->
-  <!-- <mat-grid-list cols="2" rowHeight="2:1">
+<!-- <mat-grid-list cols="2" rowHeight="2:1">
 
     <mat-grid-tile [rowspan]="2">
       <app-corona-table class="corona-table"></app-corona-table>
@@ -30,9 +30,26 @@
       <app-corona-table class="corona-table"></app-corona-table>
     </div>
     <div class="charts" fxFlex="60" fxLayout="column" fxLayoutGap="20px">
-      <div style="height: 500px;"><app-corona-chart [name]="worldData.name" [data]="worldData.data | async"></app-corona-chart></div>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Country:</mat-label>
+        <mat-select [(ngModel)]="selectedCountry" name="country">
+          <mat-option *ngFor="let country of countries" [value]="country">
+            {{country}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-stroked-button color="accent" (click)="addChartCountry()" >Add</button>
+      
+      <div style="height: 500px;">
+        
+        <app-corona-chart [name]="worldData.name" [data]="worldData.data | async"></app-corona-chart>
+      </div>
       <ng-container *ngFor="let stateData of customStatesData">
-        <div style="height: 500px;"><app-corona-chart [name]="stateData.name" [data]="stateData.data | async"></app-corona-chart></div>
+        <div style="height: 500px;">
+          <button mat-stroked-button color="warn" (click)="removeChartClicked(stateData.name)">Remove</button>
+          <app-corona-chart [name]="stateData.name" [data]="stateData.data | async"></app-corona-chart>
+        </div>
       </ng-container>
+    </div>
   </div>
-</div>
