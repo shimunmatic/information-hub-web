@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from './api.service';
 import { ChartModel, ChartEntry } from './model/chart-model';
 import { CountryState } from './model/country-state';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,72 +11,54 @@ import { CountryState } from './model/country-state';
 })
 export class AppComponent {
 
-  title = 'information-hub-web';
-  worldData: ChartModel[];
-  germanyData: ChartModel[];
+  worldData = {
+    name: 'World',
+    data: this.api.getAllForWorld().pipe(map(data => this.convertToChartModel(data)))
+  };
+  customStatesData = ['Germany', 'Croatia'].map(name => {
+    return {
+      name,
+      data: this.api.getAllForCountry(name).pipe(map(data => this.convertToChartModel(data)))
+    };
+  });
 
-
-  constructor(private api: ApiService) {
-    this.getWorldData();
-    this.getGermanData();
-  }
-
-  getGermanData() {
-    this.api.getAllForCountry("Germany").subscribe(resp => {
-
-      let germanyState = resp.body;
-
-      this.germanyData = this.convertToChartModel(germanyState)
-    });
-
-  }
-  getWorldData() {
-    this.api.getAllForWorld().subscribe(resp => {
-
-      let worldState = resp.body;
-
-      this.worldData = this.convertToChartModel(worldState)
-    });
-  }
+  constructor(private api: ApiService) { }
 
   convertToChartModel(countryStates: CountryState[]): ChartModel[] {
-    let data = new Array<ChartModel>();
+    const data: ChartModel[] = [];
 
-    let modelConfirmedCases= new ChartModel();
-    let modelDeathCases = new ChartModel;
-    let modelRecoveredCases = new ChartModel;
-    modelConfirmedCases.name = "Confirmed";
-    modelDeathCases.name = "Deaths";
-    modelRecoveredCases.name = "Recovered";
+    const confirmedCases: ChartModel = {
+      name: 'Confirmed',
+      series: []
+    };
+    const deathCases: ChartModel = {
+      name: 'Deaths',
+      series: []
+    };
+    const recoveredCases: ChartModel = {
+      name: 'Recovered',
+      series: []
+    };
 
-    let seriesConfirmed = new Array<ChartEntry>();
-    let seriesDeaths = new Array<ChartEntry>();
-    let seriesRecovered = new Array<ChartEntry>();
+    countryStates.forEach(state => {
+      const confirmedEntry: ChartEntry = {
+        name: new Date(state.processedDate.processedDate),
+        value: state.confirmedCases
+      };
+      const deathsEntry: ChartEntry = {
+        name: new Date(state.processedDate.processedDate),
+        value: state.deathCases
+      };
+      const recoveredEntry: ChartEntry = {
+        name: new Date(state.processedDate.processedDate),
+        value: state.recoveredCases
+      };
+      confirmedCases.series.push(confirmedEntry);
+      deathCases.series.push(deathsEntry);
+      recoveredCases.series.push(recoveredEntry);
+    });
 
-    for (let index = 0; index < countryStates.length; index++) {
-      const state = countryStates[index];
-      let confirmedEntry = new ChartEntry();
-      confirmedEntry.name = new Date(state.processedDate.processedDate);
-      confirmedEntry.value = state.confirmedCases;
-      seriesConfirmed.push(confirmedEntry);
-
-      let deathsEntry = new ChartEntry();
-      deathsEntry.name = new Date(state.processedDate.processedDate);
-      deathsEntry.value = state.deathCases;
-      seriesDeaths.push(deathsEntry);
-
-      let recoveredEntry = new ChartEntry();
-      recoveredEntry.name = new Date(state.processedDate.processedDate);
-      recoveredEntry.value = state.recoveredCases;
-      seriesRecovered.push(recoveredEntry);
-    }
-
-    modelConfirmedCases.series = seriesConfirmed;
-    modelDeathCases.series = seriesDeaths;
-    modelRecoveredCases.series = seriesRecovered;
-
-    data.push(modelConfirmedCases, modelDeathCases, modelRecoveredCases);
-
+    data.push(confirmedCases, deathCases, recoveredCases);
     return data;
   }
 

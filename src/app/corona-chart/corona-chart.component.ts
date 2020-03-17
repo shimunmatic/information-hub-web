@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ChartModel } from '../model/chart-model';
 
 @Component({
   selector: 'app-corona-chart',
   templateUrl: './corona-chart.component.html',
-  styleUrls: ['./corona-chart.component.css']
+  styleUrls: ['./corona-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoronaChartComponent implements OnInit {
 
@@ -20,7 +21,11 @@ export class CoronaChartComponent implements OnInit {
   timeline = true;
   autoScale = true;
 
-  @Input() data: ChartModel[];
+  @Input()
+  data: ChartModel[];
+
+  @Input()
+  name: string;
 
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
@@ -28,8 +33,7 @@ export class CoronaChartComponent implements OnInit {
   // line, area
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSelect(event) {
     console.log(event);

@@ -1,5 +1,18 @@
-<ngx-charts-line-chart [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis"
-    [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" [timeline]="timeline"
+<div style="height: 100%; height: 100%;">
+  <div style="text-align: center;">{{name}}</div>
+  <ngx-charts-line-chart
+    [scheme]="colorScheme"
+    [results]="data"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [autoScale]="autoScale"
+    [timeline]="timeline"
     (select)="onSelect($event)">
-</ngx-charts-line-chart>
+  </ngx-charts-line-chart>
+</div>
