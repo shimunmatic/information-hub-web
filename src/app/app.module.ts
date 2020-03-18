@@ -18,14 +18,21 @@ import { CoronaChartComponent } from './corona-chart/corona-chart.component';
 import { CoronaTableComponent } from './corona-table/corona-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddCountryComponent } from './add-country/add-country.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DetailsComponent } from './details/details.component';
 @NgModule({
   declarations: [
     AppComponent,
     CoronaTableComponent,
-    CoronaChartComponent
+    CoronaChartComponent,
+    AddCountryComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatSortModule,
     NgxChartsModule,
     FlexLayoutModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { ApiService } from './api.service';
 import { ChartModel, ChartEntry } from './model/chart-model';
 import { CountryState } from './model/country-state';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCountryComponent } from './add-country/add-country.component';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +13,10 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  restUrl = `http://${environment.apiUrl}/swagger-ui.html`;
+  country: string;
+
   countries: string[];
   selectedCountry: string;
 
@@ -24,10 +31,22 @@ export class AppComponent {
     };
   });
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private dialog: MatDialog) { }
+
+  select(country: string) {
+    this.country = country;
+  }
+
+  addCountry() {
+    this.dialog.open(AddCountryComponent).afterClosed()
+      .pipe(filter(country => !!country))
+      .subscribe(country => {
+        alert(country);
+      });
+  }
 
   ngOnInit() {
-    this.getCountryNames();
+    // this.getCountryNames();
   }
 
   getCountryNames() {
@@ -36,7 +55,6 @@ export class AppComponent {
         this.countries = resp;
         this.countries.sort();
       })
-
   }
 
   convertToChartModel(countryStates: CountryState[]): ChartModel[] {

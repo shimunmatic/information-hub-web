@@ -28,10 +28,10 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.dataSource.sort = this.sort;
-    this.selectedCountry = "World";
-    this.getProcessedDates();
-    this.getCountryNames();
+    // this.dataSource.sort = this.sort;
+    // this.selectedCountry = "World";
+    // this.getProcessedDates();
+    // this.getCountryNames();
   }
 
   ngAfterViewInit() {

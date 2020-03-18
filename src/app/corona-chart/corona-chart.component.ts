@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ChartModel } from '../model/chart-model';
 
 @Component({
@@ -7,9 +7,8 @@ import { ChartModel } from '../model/chart-model';
   styleUrls: ['./corona-chart.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoronaChartComponent implements OnInit {
+export class CoronaChartComponent {
 
-  // options
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -24,19 +23,10 @@ export class CoronaChartComponent implements OnInit {
   @Input()
   data: ChartModel[];
 
-  @Input()
-  name: string;
-
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-  // line, area
+
   constructor() { }
-
-  ngOnInit(): void { }
-
-  onSelect(event) {
-    console.log(event);
-  }
 
 }
