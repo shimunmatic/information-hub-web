@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
 
-  restUrl = `http://${environment.apiUrl}/swagger-ui.html`;
+  restUrl = `${environment.apiUrl}/swagger-ui.html`;
   country: string;
 
   countries: string[];
