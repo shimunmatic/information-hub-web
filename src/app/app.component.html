@@ -4,23 +4,22 @@
   </button>
   <h1>COVID-19 HUB</h1>
   <span class="spacer"></span>
-  <button mat-icon-button matTooltip="Add country" (click)="addCountry()"><mat-icon>add_circle_outline</mat-icon></button>
+  <button mat-icon-button matTooltip="Add countries" (click)="addCountries()"><mat-icon>add_circle_outline</mat-icon></button>
 </mat-toolbar>
 <mat-sidenav-container class="container">
-  <mat-sidenav #sidenav opened mode="side" style="margin-bottom: 100px;">
+  <mat-sidenav #sidenav opened mode="side">
     <div>
       <mat-nav-list>
-        <a mat-list-item (click)="select('world')">
+        <h3 matSubheader>Default</h3>
+        <a mat-list-item *ngFor="let country of defaultCountries" (click)="select(country)">
           <mat-icon matListIcon>location_city</mat-icon>
-          <h3 matLine>World</h3>
+          <h3 matLine>{{country}}</h3>
         </a>
-        <a mat-list-item (click)="select('germany')">
+        <mat-divider></mat-divider>
+        <h3 matSubheader>My countries</h3>
+        <a mat-list-item *ngFor="let country of savedCountries$ | async" (click)="select(country)">
           <mat-icon matListIcon>location_city</mat-icon>
-          <h3 matLine>Germany</h3>
-        </a>
-        <a mat-list-item (click)="select('croatia')">
-          <mat-icon matListIcon>location_city</mat-icon>
-          <h3 matLine>Croatia</h3>
+          <h3 matLine>{{country}}</h3>
         </a>
       </mat-nav-list>
     </div>
@@ -31,11 +30,18 @@
 
   </mat-sidenav>
 
-  <div class="content" fxLayout="row" fxLayoutAlign="center start">
-    <mat-card class="content-card">
-      <app-details *ngIf="country" [country]="country"></app-details>
-      <div *ngIf="!country" style="width: 100%;text-align: center;">Select or add a country!</div>
-    </mat-card>
+  <div class="content" fxLayout="column" fxLayoutAlign="start center">
+    <div class="content-card">
+      <mat-card *ngIf="country">
+        <corona-table [country]="country"></corona-table>
+      </mat-card>
+      <mat-card *ngIf="country">
+        <corona-details [country]="country"></corona-details>
+      </mat-card>
+      <mat-card *ngIf="!country">
+        <div style="width: 100%; text-align: center;">Select or add a country!</div>
+      </mat-card>
+    </div>
   </div>
 
 </mat-sidenav-container>

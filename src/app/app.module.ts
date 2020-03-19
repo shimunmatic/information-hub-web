@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoronaChartComponent } from './corona-chart/corona-chart.component';
+import { CoronaChartComponent } from './details/corona-chart/corona-chart.component';
 import { CoronaTableComponent } from './corona-table/corona-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddCountryComponent } from './add-country/add-country.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DetailsComponent } from './details/details.component';
+import { CommonModule } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +59,9 @@ import { DetailsComponent } from './details/details.component';
     MatListModule,
     MatIconModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    CommonModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

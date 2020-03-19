@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ApiService, StorageService } from 'services';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-add-country',
+  selector: 'corona-add-country',
   templateUrl: './add-country.component.html',
-  styleUrls: ['./add-country.component.css']
+  styleUrls: ['./add-country.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCountryComponent implements OnInit {
+export class AddCountryComponent {
 
-  constructor() { }
+  countries$ = this.api.getAllCountryNames()
+    .pipe(
+      map(countries => countries.filter(country => !this.storage.getCountries().includes(country))
+    )
+  );
 
-  ngOnInit(): void {
-  }
+  constructor(private api: ApiService, private storage: StorageService) { }
 
 }

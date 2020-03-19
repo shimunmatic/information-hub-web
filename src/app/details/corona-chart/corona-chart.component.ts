@@ -1,11 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ChartModel } from '../model/chart-model';
+import { Component, Input } from '@angular/core';
+import { ChartModel } from '../../model/chart-model';
 
 @Component({
-  selector: 'app-corona-chart',
+  selector: 'corona-chart',
   templateUrl: './corona-chart.component.html',
-  styleUrls: ['./corona-chart.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./corona-chart.component.css']
 })
 export class CoronaChartComponent {
 
@@ -22,6 +21,9 @@ export class CoronaChartComponent {
 
   @Input()
   data: ChartModel[];
+
+  @Input()
+  country: string;
 
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
