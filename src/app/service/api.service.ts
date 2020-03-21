@@ -31,15 +31,15 @@ export class ApiService {
     }
   }
 
-  getAllForPlaceOnDate(place: string, dateId: number) {
+  getForPlaceOnDate(place: string, dateId: number) {
     if (place.toUpperCase() === 'WORLD') {
-      return this.getAllForWorldForProcessedDate(dateId);
+      return this.getAllForProcessedDate(dateId);
     } else {
       return this.getAllForCountryAndPorcessedDate(place, dateId);
     }
   }
 
-  privategetAllForProcessedDate(processedDateId: number): Observable<CountryState[]> {
+  private getAllForProcessedDate(processedDateId: number): Observable<CountryState[]> {
     return this.http.get<CountryState[]>(`${this.url}/api/countrystate/all/${processedDateId}`);
   }
 
@@ -55,7 +55,7 @@ export class ApiService {
     return this.http.get<CountryState[]>(`${this.url}/api/countrystate/country/${countryName}`);
   }
 
-  private getAllForCountryAndPorcessedDate(countryName: string, processedDateId: number): Observable<CountryState[]> {
+  getAllForCountryAndPorcessedDate(countryName: string, processedDateId: number): Observable<CountryState[]> {
     return this.http.get<CountryState[]>(`${this.url}/api/countrystate/country/${countryName}/${processedDateId}`);
   }
 

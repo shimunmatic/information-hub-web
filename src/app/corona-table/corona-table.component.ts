@@ -22,11 +22,13 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
     this.getDataForPlaceOnDate();
   }
 
-  coronaStats: CountryState[] = [];
-  processedDates: ProcessedDate[] = [];
-  countries: string[];
+  sums = {
+    dead: 0,
+    recovered: 0,
+    confirmed: 0
+  }
 
-  dataSource = new MatTableDataSource(this.coronaStats);
+  dataSource = new MatTableDataSource([]);
 
   displayedColumns: string[] = ['countryName', 'stateName', 'lastUpdated', 'confirmedCases', 'deathCases', 'recoveredCases'];
 
@@ -41,9 +43,16 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
   }
 
   private getDataForPlaceOnDate() {
-    this.api.getAllForPlaceOnDate(this._country, this._date.id).subscribe(data => {
-      console.log(data);
+    this.sums = { dead: 0, recovered: 0, confirmed: 0 }
+    this.api.getForPlaceOnDate(this._country, this._date.id)
+    .subscribe(data => {
+      data.sort(this.compare);
       this.dataSource.data = data;
+      data.forEach(it => {
+        this.sums.confirmed += it.confirmedCases;
+        this.sums.recovered += it.recoveredCases;
+        this.sums.dead += it.deathCases;
+      })
     });
   }
 
@@ -53,77 +62,14 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  getCountryNames() {
-    // this.api.getAllCountryNames()
-    //   .subscribe(resp => {
-    //     this.countries = resp;
-    //     this.countries.sort();
-    //     this.countries = ['World'].concat(this.countries);
-    //   })
-  }
-  getProcessedDates() {
-    // this.api.getAllProcessedDates()
-    //   .subscribe(resp => {
-    //     this.processedDates = resp;
-
-    //     this.selectedProcessedDate = this.processedDates[0];
-    //     this.getCoronaStatsForProcessedDate(this.selectedProcessedDate);
-    //   });
+  private compare( a: CountryState, b: CountryState ) {
+    if ( a.countryName.toUpperCase() < b.countryName.toUpperCase() ){
+      return -1;
+    }
+    if ( a.countryName.toUpperCase() > b.countryName.toUpperCase() ){
+      return 1;
+    }
+    return 0;
   }
 
-  getCoronaStats() {
-    // this.api.getAll()
-    //   .subscribe(resp => {
-    //     this.coronaStats = resp;
-
-    //     this.dataSource.data = this.coronaStats;
-    //   });
-  }
-
-  getCoronaStatsForProcessedDate(date: ProcessedDate) {
-    // this.api.getAllForProcessedDate(date.id)
-    //   .subscribe(resp => {
-    //     this.coronaStats = resp;
-
-    //     this.dataSource.data = this.coronaStats;
-    //     this.dataSource.sort = this.sort;
-
-    //   });
-  }
-
-  getCoronaStatsForCountryAndProcessedDate(countryName: string, processedDate: ProcessedDate) {
-    // this.api.getAllForCountryAndPorcessedDate(countryName, processedDate.id)
-    //   .subscribe(resp => {
-    //     this.coronaStats = resp;
-
-    //     this.dataSource.data = this.coronaStats;
-    //   });
-  }
-
-  applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  onDateChanged(selectedProcessedDate: ProcessedDate) {
-    // if (this.selectedCountry) {
-    //   if (this.selectedCountry === 'World') {
-    //     this.getCoronaStatsForProcessedDate(this.selectedProcessedDate);
-    //   }
-    //   else {
-    //     this.getCoronaStatsForCountryAndProcessedDate(this.selectedCountry, this.selectedProcessedDate);
-    //   }
-    // } else {
-    //   this.getCoronaStatsForProcessedDate(selectedProcessedDate);
-    // }
-  }
-
-  onCountryChanged(countryName: string) {
-    // if (countryName === 'World') {
-    //   this.getCoronaStatsForProcessedDate(this.selectedProcessedDate);
-    // }
-    // else {
-    //   this.getCoronaStatsForCountryAndProcessedDate(countryName, this.selectedProcessedDate);
-    // }
-  }
 }
