@@ -16,10 +16,21 @@
           <h3 matLine>{{country}}</h3>
         </a>
         <mat-divider></mat-divider>
-        <h3 matSubheader>My countries</h3>
-        <a mat-list-item *ngFor="let country of savedCountries$ | async" (click)="select(country)">
+        <h3 matSubheader>
+          <span style="width: 100%;">My places</span>
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item (click)="deleteAllCountries()">Clear all</button>
+          </mat-menu>
+          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </h3>
+        <a class="my-place" mat-list-item *ngFor="let country of savedCountries$ | async" (click)="select(country)">
           <mat-icon matListIcon>location_city</mat-icon>
           <h3 matLine>{{country}}</h3>
+          <button class="remove-my-place" matTooltip="Remove" mat-icon-button (click)="deleteCountry($event, country)">
+            <mat-icon color="warn">close</mat-icon>
+        </button>
         </a>
       </mat-nav-list>
     </div>

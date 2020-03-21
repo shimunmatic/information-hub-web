@@ -59,12 +59,13 @@ export class StorageService {
         this._countries.splice(index, 1);
       }
     });
+    this.saveToLocalStorage();
     this.notify();
   }
 
   clearCountries() {
     this._countries = [];
-    localStorage.removeItem(this.localStorageKey);
+    this.saveToLocalStorage();
     this.notify();
   }
 

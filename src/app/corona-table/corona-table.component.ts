@@ -8,7 +8,7 @@ import { ApiService } from 'services';
 @Component({
   selector: 'corona-table',
   templateUrl: './corona-table.component.html',
-  styleUrls: ['./corona-table.component.css']
+  styleUrls: ['./corona-table.component.scss']
 })
 export class CoronaTableComponent implements AfterViewInit, OnInit {
 
@@ -63,13 +63,7 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
   }
 
   private compare( a: CountryState, b: CountryState ) {
-    if ( a.countryName.toUpperCase() < b.countryName.toUpperCase() ){
-      return -1;
-    }
-    if ( a.countryName.toUpperCase() > b.countryName.toUpperCase() ){
-      return 1;
-    }
-    return 0;
+    return a.countryName.localeCompare(b.countryName)
   }
 
 }

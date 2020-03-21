@@ -29,6 +29,8 @@ import { CoronaTableComponent } from './corona-table/corona-table.component';
 import { GermanyMapComponent } from './germany-map/germany-map.component';
 import { AddCountryComponent } from './add-country/add-country.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +64,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDialogModule,
     CommonModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,7 +8,7 @@ import { convertToChartModel } from 'utils';
 @Component({
   selector: 'corona-chart',
   templateUrl: './corona-chart.component.html',
-  styleUrls: ['./corona-chart.component.css']
+  styleUrls: ['./corona-chart.component.scss']
 })
 export class CoronaChartComponent {
 

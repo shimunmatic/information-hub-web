@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'corona-add-country',
   templateUrl: './add-country.component.html',
-  styleUrls: ['./add-country.component.css'],
+  styleUrls: ['./add-country.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCountryComponent {

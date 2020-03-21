@@ -25,6 +25,17 @@ mat-sidenav {
   margin: 10px;
 }
 
+/* Country navigation list*/
+.my-place {
+  .remove-my-place {
+    display: none;
+  }
+}
+.my-place:hover {
+  .remove-my-place {
+    display: block;
+  }
+}
 
 /* Footer classes */
 .footer {

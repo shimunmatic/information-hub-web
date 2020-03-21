@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, Input } from '@angular/core';
-import { getStateCodeFromName, options } from './utils';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { convertCSVToArray } from 'convert-csv-to-array';
 import { fromEvent, timer } from 'rxjs';
-import { debounce, map } from 'rxjs/operators';
+import { debounce } from 'rxjs/operators';
+import { getStateCodeFromName, options } from './utils';
+
 declare const google: any;
-declare const $: any;
 
 @Component({
   selector: 'corona-germany-map',
   templateUrl: './germany-map.component.html',
-  styleUrls: ['./germany-map.component.css']
+  styleUrls: ['./germany-map.component.scss']
 })
 export class GermanyMapComponent implements AfterViewInit {
 
@@ -42,9 +43,9 @@ export class GermanyMapComponent implements AfterViewInit {
     });
   }
 
-  private onChartLoad(csv: string) {
+  private onChartLoad(csvString: string) {
     const transformedData: any[] = [];
-    const csvArray =  $.csv2Array(csv);
+    const csvArray = convertCSVToArray(csvString, { type: 'array' });
     csvArray[0].unshift('Province');
     transformedData.push(['Province', 'Name', 'Total', 'Deaths']);
     for (let i = 1; i < csvArray.length; i++) {

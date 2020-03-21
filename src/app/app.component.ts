@@ -8,7 +8,7 @@ import { AddCountryComponent } from './add-country/add-country.component';
 @Component({
   selector: 'corona-app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
@@ -43,6 +43,16 @@ export class AppComponent {
       .subscribe(countries => {
         this.storage.addCountries(countries);
       });
+  }
+
+  deleteCountry(event: Event, country: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.storage.removeCountries([country]);
+  }
+
+  deleteAllCountries() {
+    this.storage.clearCountries();
   }
 
 }
