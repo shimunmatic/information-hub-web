@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { ChartModel } from '../model/chart-model';
-import { Observable } from 'rxjs';
-import { ApiService } from 'services';
 import { map } from 'rxjs/operators';
+import { ApiService } from 'services';
 import { convertToChartModel } from 'utils';
+import { ChartModel } from '../model/chart-model';
 
 @Component({
   selector: 'corona-chart',
@@ -29,18 +28,26 @@ export class CoronaChartComponent {
 
   _country: string;
 
-  data$: Observable<ChartModel[]>;
+  data: ChartModel[];
+  _inProgress = true;
 
   @Input()
   set country(country: string) {
     this._country = country;
+    this._inProgress = true;
     this.getDataForCountry();
   }
 
   constructor(private api: ApiService) { }
 
   getDataForCountry() {
-    this.data$ = this.api.getAllForPlace(this._country).pipe(map(data => convertToChartModel(data)));
+    this.api.getAllForPlace(this._country)
+      .pipe(
+        map(data => convertToChartModel(data))
+      ).subscribe(data => {
+        this.data = data;
+        this._inProgress = false;
+      })
   }
 
 }

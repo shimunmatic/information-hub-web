@@ -30,6 +30,7 @@ import { GermanyMapComponent } from './germany-map/germany-map.component';
 import { AddCountryComponent } from './add-country/add-country.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { MatMenuModule } from '@angular/material/menu';
     CommonModule,
     MatDividerModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

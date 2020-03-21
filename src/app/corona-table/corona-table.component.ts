@@ -15,9 +15,11 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
   dates = this.api.dates;
   _date: ProcessedDate = this.dates[0];
   _country:string;
+  _inProgress=true;
 
   @Input()
   set country(country: string) {
+    this._inProgress=true;
     this._country = country;
     this.getDataForPlaceOnDate();
   }
@@ -38,6 +40,7 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
   constructor(private api: ApiService) { }
 
   onSelectDate(date: ProcessedDate) {
+    this._inProgress=true;
     this._date = date;
     this.getDataForPlaceOnDate();
   }
@@ -52,7 +55,8 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
         this.sums.confirmed += it.confirmedCases;
         this.sums.recovered += it.recoveredCases;
         this.sums.dead += it.deathCases;
-      })
+      });
+      this._inProgress = false;
     });
   }
 
