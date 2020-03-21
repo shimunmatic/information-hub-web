@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
-import { ApiService, StorageService } from 'services';
+import { ApiService, StorageService, ThemeService } from 'services';
 import { environment } from '../environments/environment';
 import { AddCountryComponent } from './add-country/add-country.component';
 
@@ -24,7 +24,12 @@ export class AppComponent {
 
   screenWidth: number;
 
-  constructor(private api: ApiService, private dialog: MatDialog, private storage: StorageService) {
+  constructor(
+    private theme: ThemeService,
+    private api: ApiService,
+    private dialog: MatDialog,
+    private storage: StorageService
+  ) {
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
@@ -53,6 +58,14 @@ export class AppComponent {
 
   deleteAllCountries() {
     this.storage.clearCountries();
+  }
+
+  setLightTheme() {
+    this.theme.setLightTheme();
+  }
+
+  setDarkTheme() {
+    this.theme.setDarkTheme();
   }
 
 }

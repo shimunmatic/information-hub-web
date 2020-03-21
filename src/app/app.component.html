@@ -5,6 +5,13 @@
   <h1>COVID-19 HUB</h1>
   <span class="spacer"></span>
   <button mat-icon-button matTooltip="Add countries" (click)="addCountries()"><mat-icon>add_circle_outline</mat-icon></button>
+  <mat-menu #themeMenu="matMenu">
+    <button mat-menu-item (click)="setLightTheme()">Light</button>
+    <button mat-menu-item (click)="setDarkTheme()">Dark</button>
+  </mat-menu>
+  <button mat-icon-button [matMenuTriggerFor]="themeMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-sidenav-container class="container">
   <mat-sidenav #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
@@ -18,10 +25,10 @@
         <mat-divider></mat-divider>
         <h3 matSubheader>
           <span style="width: 100%;">My places</span>
-          <mat-menu #appMenu="matMenu">
+          <mat-menu #placesMenu="matMenu">
             <button mat-menu-item (click)="deleteAllCountries()">Clear all</button>
           </mat-menu>
-          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+          <button mat-icon-button [matMenuTriggerFor]="placesMenu">
             <mat-icon>more_vert</mat-icon>
           </button>
         </h3>
