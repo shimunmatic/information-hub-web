@@ -22,7 +22,16 @@ export class AppComponent {
   savedCountries$ = this.storage.getSavedCountries$();
   defaultCountries = this.storage.getDefaultCountries();
 
-  constructor(private api: ApiService, private dialog: MatDialog, private storage: StorageService) { }
+  screenWidth: number;
+
+  constructor(private api: ApiService, private dialog: MatDialog, private storage: StorageService) {
+    // set screenWidth on page load
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+      // set screenWidth on screen size change
+      this.screenWidth = window.innerWidth;
+    };
+  }
 
   select(country: string) {
     this.country = country;
@@ -35,70 +44,5 @@ export class AppComponent {
         this.storage.addCountries(countries);
       });
   }
-
-  // ngOnInit() {
-  //   this.getCountryNames();
-  // }
-
-  // getCountryNames() {
-  //   this.api.getAllCountryNames()
-  //     .subscribe(resp => {
-  //       this.countries = resp;
-  //       this.countries.sort();
-  //     })
-  // }
-
-  // convertToChartModel(countryStates: CountryState[]): ChartModel[] {
-  //   const data: ChartModel[] = [];
-
-  //   const confirmedCases: ChartModel = {
-  //     name: 'Confirmed',
-  //     series: []
-  //   };
-  //   const deathCases: ChartModel = {
-  //     name: 'Deaths',
-  //     series: []
-  //   };
-  //   const recoveredCases: ChartModel = {
-  //     name: 'Recovered',
-  //     series: []
-  //   };
-
-  //   countryStates.forEach(state => {
-  //     const confirmedEntry: ChartEntry = {
-  //       name: new Date(state.processedDate.processedDate),
-  //       value: state.confirmedCases
-  //     };
-  //     const deathsEntry: ChartEntry = {
-  //       name: new Date(state.processedDate.processedDate),
-  //       value: state.deathCases
-  //     };
-  //     const recoveredEntry: ChartEntry = {
-  //       name: new Date(state.processedDate.processedDate),
-  //       value: state.recoveredCases
-  //     };
-  //     confirmedCases.series.push(confirmedEntry);
-  //     deathCases.series.push(deathsEntry);
-  //     recoveredCases.series.push(recoveredEntry);
-  //   });
-
-  //   data.push(confirmedCases, deathCases, recoveredCases);
-  //   return data;
-  // }
-
-  // removeChartClicked(countryName: string) {
-  //   this.customStatesData = this.customStatesData.filter(function (obj) {
-  //     return obj.name != countryName;
-  //   })
-  // }
-
-  // addChartCountry() {
-  //   if (this.selectedCountry && this.selectedCountry != "") {
-  //     this.customStatesData.push({
-  //       name: this.selectedCountry,
-  //       data: this.api.getAllForCountry(this.selectedCountry).pipe(map(data => this.convertToChartModel(data)))
-  //     });
-  //   }
-  // }
 
 }

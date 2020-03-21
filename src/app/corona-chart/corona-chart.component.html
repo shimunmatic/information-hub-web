@@ -1,0 +1,25 @@
+<mat-expansion-panel expanded="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>Chart data</mat-panel-title>
+    <mat-panel-description>Interactive chart of cumulative deaths, recoveries and confirmed cases</mat-panel-description>
+  </mat-expansion-panel-header>
+  <div style="height: 500px;">
+    <div style="text-align: center;">{{_country}}</div>
+    <ng-container *ngIf="data$ | async as data">
+      <ngx-charts-line-chart
+        [scheme]="colorScheme"
+        [results]="data"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [autoScale]="autoScale"
+        [timeline]="timeline">
+      </ngx-charts-line-chart>
+    </ng-container>
+  </div>
+</mat-expansion-panel>

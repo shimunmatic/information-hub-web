@@ -6,7 +6,6 @@ import { CountryState } from '../model/country-state';
 import { ProcessedDate } from '../model/processed-date';
 import { map } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +25,6 @@ export class ApiService {
 
   getAllForPlace(place: string) {
     if (place.toUpperCase() === 'WORLD') {
-      console.log('here');
       return this.getAllForWorld();
     } else {
       return this.getAllForCountry(place);

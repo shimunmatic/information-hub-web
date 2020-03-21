@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +9,7 @@ export class StorageService {
   private _countries = [];
   private _countries$ = new BehaviorSubject(this._countries);
 
-  private defaultCountries = ['World', 'Germany', 'Croatia']
+  private defaultCountries = ['World', 'Germany', 'Croatia'];
 
   private localStorageKey = 'country';
 
@@ -31,7 +30,7 @@ export class StorageService {
     return this.defaultCountries;
   }
 
-  getCountries() {
+  getCountries(): string[] {
     return [...this.defaultCountries, ...this._countries];
   }
 

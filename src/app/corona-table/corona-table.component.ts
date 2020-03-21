@@ -42,6 +42,7 @@ export class CoronaTableComponent implements AfterViewInit, OnInit {
 
   private getDataForPlaceOnDate() {
     this.api.getAllForPlaceOnDate(this._country, this._date.id).subscribe(data => {
+      console.log(data);
       this.dataSource.data = data;
     });
   }

@@ -7,7 +7,7 @@
   <button mat-icon-button matTooltip="Add countries" (click)="addCountries()"><mat-icon>add_circle_outline</mat-icon></button>
 </mat-toolbar>
 <mat-sidenav-container class="container">
-  <mat-sidenav #sidenav opened mode="side">
+  <mat-sidenav #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
     <div>
       <mat-nav-list>
         <h3 matSubheader>Default</h3>
@@ -26,23 +26,26 @@
 
     <div class="footer">
       <a target="_blank" [href]="restUrl">REST url</a>
-    </div> 
+    </div>
 
   </mat-sidenav>
 
   <div class="content" fxLayout="column" fxLayoutAlign="start center">
-    <div class="content-card">
-      <mat-card *ngIf="country">
-        <corona-table [country]="country"></corona-table>
-      </mat-card>
-      <mat-card *ngIf="country">
-        <corona-details [country]="country"></corona-details>
-      </mat-card>
+    <div class="content-wrapper">
       <mat-card *ngIf="!country">
         <div style="width: 100%; text-align: center;">Select or add a country!</div>
       </mat-card>
+      <mat-card *ngIf="country">
+        <div style="width: 100%; text-align: center;"><b>{{country}}</b></div>
+      </mat-card>
+      <ng-container *ngIf="country">
+        <corona-table class="with-margin" [country]="country"></corona-table>
+      </ng-container>
+      <ng-container *ngIf="country">
+        <corona-chart class="with-margin" [country]="country"></corona-chart>
+      </ng-container>
+      <corona-germany-map class="with-margin" [expanded]="!country"></corona-germany-map>
     </div>
-    <corona-germany-map></corona-germany-map>
   </div>
 
 </mat-sidenav-container>
