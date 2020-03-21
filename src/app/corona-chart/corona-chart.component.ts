@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { ApiService } from 'services';
+import { map, filter } from 'rxjs/operators';
+import { ApiService, ThemeService, LIGHT_THEME_CLASS } from 'services';
 import { convertToChartModel } from 'utils';
 import { ChartModel } from '../model/chart-model';
 
@@ -22,9 +22,15 @@ export class CoronaChartComponent {
   timeline = true;
   autoScale = true;
 
-  colorScheme = {
+  private _lightColorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
+
+  private _darkColorScheme = {
+    domain: ['#1CBCD8', '#FF8D60', '#FF586B', '#AAAAAA']
+  };
+
+  colorScheme = this._lightColorScheme;
 
   _country: string;
 
@@ -38,7 +44,15 @@ export class CoronaChartComponent {
     this.getDataForCountry();
   }
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private theme: ThemeService) {
+    this.theme.onChange().pipe(filter(value => !!value)).subscribe(value => {
+      if (value === LIGHT_THEME_CLASS) {
+        this.colorScheme = this._lightColorScheme;
+      } else {
+        this.colorScheme = this._darkColorScheme;
+      }
+    });
+  }
 
   getDataForCountry() {
     this.api.getAllForPlace(this._country)

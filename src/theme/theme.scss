@@ -8,6 +8,10 @@ $light-warn:    mat-palette($mat-red);
 $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 .light-theme {
   @include angular-material-theme($light-theme);
+  a {
+    color: purple;
+  }
+  .ngx-charts text { fill: black; }
 }
 
 // Define dark theme.
@@ -17,4 +21,8 @@ $dark-warn:    mat-palette($mat-deep-orange);
 $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .dark-theme {
   @include angular-material-theme($dark-theme);
+  a {
+    color: white;
+  }
+  .ngx-charts text { fill: white; }
 }
