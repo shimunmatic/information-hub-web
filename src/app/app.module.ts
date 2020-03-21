@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DetailsComponent } from './details/details.component';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
+import { GermanyMapComponent } from './germany-map/germany-map.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatDividerModule } from '@angular/material/divider';
     CoronaTableComponent,
     CoronaChartComponent,
     AddCountryComponent,
-    DetailsComponent
+    DetailsComponent,
+    GermanyMapComponent
   ],
   imports: [
     BrowserModule,

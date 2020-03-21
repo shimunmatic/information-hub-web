@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.information-hub.shimunmatic.de'
+  apiUrl: 'http://localhost:8090'
 };
 
 /*
